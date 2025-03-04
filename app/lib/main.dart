@@ -48,11 +48,11 @@ class _HomeState extends ConsumerState<Home> {
       backgroundColor: Theme.of(context).colorScheme.surfaceBright,
       body: Center(
         child: ref.watch(appStateNotifierProvider).when(
-              data: (AppState data) => LoadCsvButton(),
+              data: (AppState data) => const LoadCsvButton(),
               error: (Object error, StackTrace stackTrace) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  LoadCsvButton(),
+                  const LoadCsvButton(),
                   const SizedBox(height: 8),
                   Text(
                     'Something went wrong...',
