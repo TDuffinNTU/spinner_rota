@@ -52,33 +52,52 @@ class _HomeState extends ConsumerState<Home> {
         title: const Text('Welcome To Spinner_Rota!'),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () => ref.read(toggleDarkmodeProvider),
-            icon: Icon(
-              ref.read(getDarkmodeProvider) ? Icons.mode_night : Icons.sunny,
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              onPressed: () => ref.read(toggleDarkmodeProvider),
+              icon: Icon(
+                ref.read(getDarkmodeProvider) ? Icons.mode_night : Icons.sunny,
+              ),
             ),
           ),
           Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: PopupMenuButton(
-                tooltip: 'Set the app color',
-                icon: const Icon(Icons.brush),
-                constraints: BoxConstraints.loose(Size.infinite),
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    child: ColorPicker(
-                      paletteType: PaletteType.hslWithSaturation,
-                      pickerColor: ref.read(getThemeColorProvider),
-                      portraitOnly: true,
-                      enableAlpha: false,
-                      labelTypes: const [],
-                      onColorChanged: (color) => ref.read(
-                        setThemeColorProvider(newCol: color),
-                      ),
+            padding: const EdgeInsets.only(right: 8.0),
+            child: PopupMenuButton(
+              tooltip: 'Set the app color',
+              icon: const Icon(Icons.brush),
+              constraints: BoxConstraints.loose(Size.infinite),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: ColorPicker(
+                    paletteType: PaletteType.hslWithSaturation,
+                    pickerColor: ref.read(getThemeColorProvider),
+                    portraitOnly: true,
+                    enableAlpha: false,
+                    labelTypes: const [],
+                    onColorChanged: (color) => ref.read(
+                      setThemeColorProvider(newCol: color),
                     ),
-                  )
-                ],
-              ))
+                  ),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              onPressed: () => showAboutDialog(
+                context: context,
+                applicationName: 'Spinner_Rota',
+                applicationVersion: const String.fromEnvironment('version'),
+                applicationLegalese: 'Built with love (and boredom) under the '
+                    'GPLv3.0 license. Search me up on Github!',
+                // TODO add an icon...
+                applicationIcon: const FlutterLogo(),
+              ),
+              icon: const Icon(Icons.info_outline),
+            ),
+          ),
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.surfaceBright,
