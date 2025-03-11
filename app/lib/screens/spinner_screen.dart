@@ -110,13 +110,19 @@ class _SpinnerScreenState extends ConsumerState<SpinnerScreen> {
             appBar: AppBar(
               backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               title: Text(data.title),
+              centerTitle: true,
               actions: [
-                IconButton(
-                  onPressed: () => setState(() {
-                    soundMuted = !soundMuted;
-                    audioPlayer.setVolume(soundMuted ? 0 : 1);
-                  }),
-                  icon: Icon(soundMuted ? Icons.music_off : Icons.music_note),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    tooltip:
+                        '${soundMuted ? 'Enable' : 'Disable'} sound effects',
+                    onPressed: () => setState(() {
+                      soundMuted = !soundMuted;
+                      audioPlayer.setVolume(soundMuted ? 0 : 1);
+                    }),
+                    icon: Icon(soundMuted ? Icons.music_off : Icons.music_note),
+                  ),
                 )
               ],
             ),

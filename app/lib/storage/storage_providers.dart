@@ -15,12 +15,27 @@ class AppStateNotifier extends _$AppStateNotifier {
 
   @override
   FutureOr<AppState> build() => const AppState(
-      title: 'None', currentMeister: -1, entries: [], savePath: 'savePath');
+        title: 'None',
+        currentMeister: -1,
+        entries: [],
+        savePath: 'savePath',
+      );
 
   void saveData() {
     throw UnimplementedError();
   }
 
+  /// Opens the file dialog and loads the CSV data from within.
+  ///
+  /// [hasMetaRow] is used to flag whether the first row of the CSV file is
+  /// a "meta row" which contains useful data in the following schema:
+  ///
+  /// `title,currentMeister`
+  ///
+  /// * title: The title of the next screen (eg. 'Squad A sprint master!')
+  /// * currentMeister: the currently selected meister as an index into the following list.
+  ///
+  /// **Warning:** This scheme is liable to change! Though I will try to do this additively so reduce breaking changes.
   Future<void> loadData(bool hasMetaRow) async {
     try {
       final FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -62,6 +77,7 @@ class AppStateNotifier extends _$AppStateNotifier {
   }
 }
 
+/// The state of the spinner app as a mega-singleton.
 class AppState {
   const AppState({
     required this.title,
